@@ -127,3 +127,10 @@
 
 
 #endif
+
+
+/* tap dance options */
+/* set tap time between multiple taps using tap dance */
+/* set tap count to 3 */
+#define TAPPING_TERM 200
+#define TAPPING_TOGGLE 3
