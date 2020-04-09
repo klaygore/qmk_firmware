@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* custom Space with Arrows - layer 0 - this should be klaygore2 keymap
  * .-----------------------------------------------------------------------------------------------------------------------------.
- * | SEARCH |   1    |   2    |   3    |   4    |   5    |  HOME  |   6    |   7    |   8    |   9    |   0    | GRAVE  | DELETE |
+ * |ESC/CAPS|   1    |   2    |   3    |   4    |   5    |  HOME  |   6    |   7    |   8    |   9    |   0    | GRAVE  | DELETE |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * | SFTTAB |   Q    |   W    |   E    |   R    |   T    |  END   |   Y    |   U    |   I    |   O    |   P    |   \    | SHIFT  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
@@ -80,21 +80,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |  LCTRL |   Z    |   X    |   C    |   V    |   B    |  PGUP  |   N    |   M    |   ,    |   .    |   /    |  UP    | RCTRL  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |ESC/CAPS|  FIND  |  ALT   |  LGUI  | BACKSP | LOWER  |  PGDN  | RAISE  | SPACE  |  CMD   |  RGUI  |  LEFT  |  DOWN  | RIGHT  |
+ * | SEARCH |  FIND  |  ALT   |  LGUI  | BACKSP | LOWER  |  PGDN  | RAISE  | SPACE  |  CMD   |  RGUI  |  LEFT  |  DOWN  | RIGHT  |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
  [_MAIN] = LAYOUT_ortho_5x14(
-  KC_WSCH,        KC_1,       KC_2,    KC_3,    KC_4,          KC_5,    KC_HOME,  KC_6,  KC_7,          KC_8,      KC_9,    KC_0,    KC_GRV,  KC_DEL, \
+  TD(ESC_CAPS),   KC_1,       KC_2,    KC_3,    KC_4,          KC_5,    KC_HOME,  KC_6,  KC_7,          KC_8,      KC_9,    KC_0,    KC_GRV,  KC_DEL, \
   LSFT_T(KC_TAB), KC_Q,       KC_W,    KC_E,    KC_R,          KC_T,    KC_END,   KC_Y,  KC_U,          KC_I,      KC_O,    KC_P,    KC_BSLS, KC_RSFT, \
   KC_ENT,         KC_A,       KC_S,    KC_D,    KC_F,          KC_G,    KC_MUTE,  KC_H,  KC_J,          KC_K,      KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  \
   KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,          KC_B,    KC_PGUP,  KC_N,  KC_M,          KC_COMM,   KC_DOT,  KC_SLSH, KC_UP,   KC_RCTL, \
-  TD(ESC_CAPS),   LCTL(KC_F), KC_LALT, KC_LGUI, LT(4,KC_BSPC), TT(2),   KC_PGDN,  TT(3), LT(5,KC_SPC),  RUN_CMD,   KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT\
+  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(4,KC_BSPC), TT(2),   KC_PGDN,  TT(3), LT(5,KC_SPC),  RUN_CMD,   KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT\
  ),
 
 /* custom gaming - layer 1
  * .-----------------------------------------------------------------------------------------------------------------------------.
- * |        |   1    |   2    |   3    |   4    |   5    |  HOME  |   6    |   7    |   8    |   9    |   0    | GRAVE  | DELETE |
+ * |ESC/CAPS|   1    |   2    |   3    |   4    |   5    |  HOME  |   6    |   7    |   8    |   9    |   0    | GRAVE  | DELETE |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * | SFTTAB |   Q    |   W    |   E    |   R    |   T    |  END   |   Y    |   U    |   I    |   O    |   P    |   \    | RSFT   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
@@ -102,16 +102,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |  LCTRL |   Z    |   X    |   C    |   V    |   B    |  PGUP  |   N    |   M    |   ,    |   .    |   /    |  UP    | RCTRL  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |ESC/CAPS|        |  ALT   |  LGUI  | BACKSP | LOWER  |  PGDN  | RAISE  | SPACE  |        |  RGUI  |  LEFT  |  DOWN  | RIGHT  |
+ * |        |        |  ALT   |  LGUI  | BACKSP | LOWER  |  PGDN  | RAISE  | SPACE  |        |  RGUI  |  LEFT  |  DOWN  | RIGHT  |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
  [_GAME] = LAYOUT_ortho_5x14(
-  KC_NO,          KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_HOME,  KC_6,    KC_7,    KC_8,       KC_9,    KC_0,    KC_GRV,  KC_DEL, \
+  TD(ESC_CAPS),   KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_HOME,  KC_6,    KC_7,    KC_8,       KC_9,    KC_0,    KC_GRV,  KC_DEL, \
   LSFT_T(KC_TAB), KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_END,   KC_Y,    KC_U,    KC_I,       KC_O,    KC_P,    KC_BSLS, KC_RSFT, \
   KC_SFTENT,      KC_A,       KC_S,    KC_D,    KC_F,    KC_G,    KC_MUTE,  KC_H,    KC_J,    KC_K,       KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  \
   KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,    KC_B,    KC_PGUP,  KC_N,    KC_M,    KC_COMM,    KC_DOT,  KC_SLSH, KC_UP,   KC_RCTL, \
-  TD(ESC_CAPS),   KC_NO,      KC_LALT, KC_LGUI, KC_BSPC, TT(2),   KC_PGDN,  TT(3),   KC_SPC,  KC_NO,      KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT\
+  KC_NO,          KC_NO,      KC_LALT, KC_LGUI, KC_BSPC, TT(2),   KC_PGDN,  TT(3),   KC_SPC,  KC_NO,      KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT\
  ),
 
 
