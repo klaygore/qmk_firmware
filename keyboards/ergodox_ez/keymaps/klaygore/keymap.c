@@ -14,6 +14,8 @@ RUN_CMD = SAFE_RANGE,
 RUN_RDP,
 RUN_CTP,
 RUN_CPM,
+RUN_NET,
+
 #ifdef ORYX_CONFIGURATOR
   EPRM = EZ_SAFE_RANGE,
 #else
@@ -49,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| CTL  |           |COMP  |------+------+------+------+------+--------|
  * | LCTRL  |   Z  |   X  |   C  |   V  |   B  | PANEL|           |MGMT  |   N  |   M  |   ,  |   .  |  /   |  RCTRL |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | RDP  | FN   | Alt  | LGUI |BSPACE|                                       |SPACE |      | RGUI |SEARCH| CMD  |
+ *   | RDP  | FIND | Alt  | LGUI |BSPACE|                                       |SPACE |RUNNET| RGUI |SEARCH|RUNCMD|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,------------.
  *                                        | HOME | END  |       | LEFT |RIGHT|
@@ -74,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NLCK,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,           RSFT_T(KC_BSLS),
   KC_H,             KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   RUN_CPM,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
-  LT(SPMOD,KC_SPC), KC_NO,   KC_RGUI, KC_WSCH, RUN_CMD,
+  LT(SPMOD,KC_SPC), RUN_NET, KC_RGUI, KC_WSCH, RUN_CMD,
   KC_LEFT, KC_RIGHT,
   KC_UP,
   KC_DOWN, KC_ENT, TT(SYMB2)
@@ -384,6 +386,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         wait_ms(100);
         SEND_STRING(SS_TAP(X_ENTER));
         return false;
+
+   case RUN_NET:
+	SEND_STRING(SS_LGUI("r"));
+	wait_ms(100);
+	SEND_STRING("ncpa.cpl");
+	wait_ms(100);
+	SEND_STRING(SS_TAP(X_ENTER));
+	return false;
     }
   }
   return true;
