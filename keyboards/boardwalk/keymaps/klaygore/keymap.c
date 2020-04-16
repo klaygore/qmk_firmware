@@ -49,7 +49,8 @@ enum custom_keycodes {
   RUN_RDP = SAFE_RANGE,
   RUN_CMD,
   RUN_CPM,
-  RUN_CTP
+  RUN_CTP,
+  RUN_NET
 };
 
 
@@ -80,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |  LCTRL |   Z    |   X    |   C    |   V    |   B    |  PGUP  |   N    |   M    |   ,    |   .    |   /    |  UP    | RCTRL  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * | SEARCH |  FIND  |  ALT   |  LGUI  | BACKSP | LOWER  |  PGDN  | RAISE  | SPACE  |  CMD   |  RGUI  |  LEFT  |  DOWN  | RIGHT  |
+ * | SEARCH |  FIND  |  ALT   |  LGUI  | BACKSP | LOWER  |  PGDN  | RAISE  | SPACE  | RUN_CMD|  RGUI  |  LEFT  |  DOWN  | RIGHT  |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -125,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |        |  F7    |  F8    |  F9    |  F10   |  F11   |  F12   |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        |        |        |        |        |  RDP   |        |        |        |        |
+ * |        | RUN_NET|        |        |        |        |        |        |        | RUN_RDP|        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -135,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PAUS, _______, _______, \
   _______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_MINS, KC_PLUS, _______, _______, _______, _______, \
   _______, KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______,  _______, _______, _______, _______, _______, _______, _______, RUN_RDP, _______, _______, _______, _______ \
+  _______, RUN_NET,  _______, _______, _______, _______, _______, _______, _______, RUN_RDP, _______, _______, _______, _______ \
  ),
 
 /* RAISE - layer 3
@@ -148,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * | NXT TR |  F19   |  F20   |  F21   |  F22   |  F23   |  F24   |        | MUTE   |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |  VOL-  |CTLPANEL|        |        |        |        | SYSTEM |        |        |COMPMGMT|        |        |        |        |
+ * |  VOL-  |CTLPANEL|        |        |        | SYSTEM |        |        |        |COMPMGMT|        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -240,7 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
     
-      case RUN_CMD:
+   case RUN_CMD:
         SEND_STRING(SS_LGUI("r"));
         wait_ms(250);
         SEND_STRING("cmd");
@@ -248,7 +249,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_TAP(X_ENTER));
         return false;
         
-      case RUN_RDP:
+   case RUN_RDP:
         SEND_STRING(SS_LGUI("r"));
         wait_ms(250);
         SEND_STRING("mstsc");
@@ -256,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_TAP(X_ENTER));
         return false;
         
-    case RUN_CPM:
+   case RUN_CPM:
         SEND_STRING(SS_LGUI("r"));
         wait_ms(250);
         SEND_STRING("compmgmt.msc");
@@ -264,10 +265,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_TAP(X_ENTER));
         return false;
         
-    case RUN_CTP:
+   case RUN_CTP:
         SEND_STRING(SS_LGUI("r"));
         wait_ms(250);
         SEND_STRING("control");
+        wait_ms(150);
+        SEND_STRING(SS_TAP(X_ENTER));
+        return false;
+
+   case RUN_NET:
+        SEND_STRING(SS_LGUI("r"));
+        wait_ms(250);
+        SEND_STRING("ncpa.cpl");
         wait_ms(150);
         SEND_STRING(SS_TAP(X_ENTER));
         return false;
