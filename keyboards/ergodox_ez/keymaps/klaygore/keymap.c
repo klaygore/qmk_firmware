@@ -269,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       | PREV | NEXT |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       | VOL+ |      |      |
- *                                 |      |      |------|       |------| MUTE | PLAY |
+ *                                 | PLAY |      |------|       |------| MUTE |      |
  *                                 |      |      |      |       | VOL- |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -282,7 +282,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,  _______, _______, _______,
                                                _______, _______,
                                                         _______,
-                                      _______, _______, _______,
+                                      KC_MPLY, _______, _______,
   // right hand
   _______, _______, _______, _______, _______, DF(BASE), _______,
   _______, _______, _______, _______, _______, _______,  _______,
@@ -291,7 +291,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______, _______, _______, _______,  _______,
   KC_MPRV, KC_MNXT,
   KC_VOLU,
-  KC_VOLD, KC_MUTE, KC_MPLY
+  KC_VOLD, KC_MUTE, _______
 ),
 
 /* Keymap 6: Space Modifier
