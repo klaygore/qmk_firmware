@@ -15,6 +15,7 @@ RUN_RDP,
 RUN_CTP,
 RUN_CPM,
 RUN_NET,
+RUN_APP,
 
 #ifdef ORYX_CONFIGURATOR
   EPRM = EZ_SAFE_RANGE,
@@ -178,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|CTRL  |           |      |------+------+------+------+------+--------|
  * |         |  F19 |  F20 |  F21 |  F22 |  F23 |PANEL |           |      | F24  |      |      |      |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |RUN_RDP|      |      |      |      |                                       |      |      |      |      |      |
+ *   |RUN_RDP|RUNAPP|      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -194,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______,
   _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,
   _______, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  RUN_CTP,
-  RUN_RDP, _______, _______, _______, _______,
+  RUN_RDP, RUN_APP, _______, _______, _______,
                                                _______, _______,
                                                         _______,
                                       _______, _______, _______,
@@ -391,6 +392,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	SEND_STRING(SS_LGUI("r"));
 	wait_ms(100);
 	SEND_STRING("ncpa.cpl");
+	wait_ms(100);
+	SEND_STRING(SS_TAP(X_ENTER));
+	return false;
+
+   case RUN_APP:
+	SEND_STRING(SS_LGUI("r"));
+	wait_ms(100);
+	SEND_STRING("appwiz.cpl");
 	wait_ms(100);
 	SEND_STRING(SS_TAP(X_ENTER));
 	return false;
