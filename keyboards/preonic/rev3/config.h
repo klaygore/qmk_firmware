@@ -18,6 +18,8 @@
 #ifndef REV3_CONFIG_H
 #define REV3_CONFIG_H
 
+
+
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0003
 
@@ -41,6 +43,8 @@
 #define MUSIC_MAP
 #undef AUDIO_VOICES
 #undef C6_AUDIO
+
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
