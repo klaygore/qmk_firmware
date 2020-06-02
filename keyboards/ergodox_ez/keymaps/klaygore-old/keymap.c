@@ -215,13 +215,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |  /     |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           | CALC |      |   7  |   8  |   9  |      |  *     |
+ * |         |      |      |      |      |      |      |           |      |      |   7  |   8  |   9  |      |  *     |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |      |      |      |      |      |------|           |------|      |   4  |   5  |   6  |      |  -     |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |---------+------+------+------+------+------|      |           | CALC |------+------+------+------+------+--------|
  * |         |      |      |      |      |      |      |           |      |      |   1  |   2  |   3  |      |  +     |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      |      |                                       |   0  |   .  |      |      |      |
+ *   |       |      |      |      |      |                                       |   0  |   .  | ENTER|      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -243,10 +243,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______, _______, _______,
   // right hand
   _______, _______, _______, _______, _______, _______, KC_PSLS,
-  KC_CALC, _______, KC_P7,   KC_P8,   KC_P9,   _______, KC_PAST,
+  _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, KC_PAST,
   _______, KC_P4,   KC_P5,   KC_P6,   _______, KC_PMNS,
-  _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, KC_PPLS,
-  KC_P0,   KC_PDOT, _______, _______, _______,
+  KC_CALC, _______, KC_P1,   KC_P2,   KC_P3,   _______, KC_PPLS,
+  KC_P0,   KC_PDOT, KC_PENT, _______, _______,
   _______, _______,
   _______,
   _______, _______, _______
@@ -347,11 +347,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case EPRM:
         eeconfig_init();
         return false;
-
       case VRSN:
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
         return false;
- 
+      #ifdef RGBLIGHT_ENABLE
+      case RGB_SLD:
+        rgblight_mode(1);
+        return false;
+      #endif
+   
       case RUN_CMD:
         SEND_STRING(SS_LGUI("r"));
         wait_ms(100);
@@ -403,3 +407,82 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+#ifdef RGBLIGHT_COLOR_LAYER_0
+  rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+#endif
+};
+
+// Runs whenever there is a layer state change.
+layer_state_t layer_state_set_user(layer_state_t state) {
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+
+  uint8_t layer = get_highest_layer(state);
+  switch (layer) {
+      case 0:
+        #ifdef RGBLIGHT_COLOR_LAYER_0
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+        #else
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_init();
+        #endif
+        #endif
+        break;
+      case 1:
+        ergodox_right_led_1_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_1
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+        #endif
+        break;
+      case 2:
+        ergodox_right_led_2_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_2
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+        #endif
+        break;
+      case 3:
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_3
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+        #endif
+        break;
+      case 4:
+        ergodox_right_led_1_on();
+        ergodox_right_led_2_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_4
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+        #endif
+        break;
+      case 5:
+        ergodox_right_led_1_on();
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_5
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+        #endif
+        break;
+      case 6:
+        ergodox_right_led_2_on();
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_6
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+        #endif
+        break;
+      case 7:
+        ergodox_right_led_1_on();
+        ergodox_right_led_2_on();
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_7
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
+        #endif
+        break;
+      default:
+        break;
+    }
+
+  return state;
+};
