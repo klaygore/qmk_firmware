@@ -57,3 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 #define TAPPING_TOGGLE 3
 #define TAPPING_TERM_PER_KEY
+
+//#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
+//#define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
