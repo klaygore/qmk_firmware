@@ -40,9 +40,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 enum preonic_layers {
 	
-  _QWERTY,
   _COLEMAK,
-  _DVORAK,
+  _QWERTY,
+  _GAME,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -53,9 +53,9 @@ enum preonic_layers {
 
 enum preonic_keycodes {
 	
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  COLEMAK = SAFE_RANGE,
+  QWERTY,
+  GAME,
   LOWER,
   RAISE,
   BACKLIT
@@ -65,9 +65,9 @@ enum preonic_keycodes {
 
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
-    case LT(7,KC_SPC):
+    case LT(_SPMOD,KC_SPC):
       return TAPPING_TERM + 50;
-    case LT(6,KC_BSPC):
+    case LT(_NUMPAD,KC_BSPC):
       return TAPPING_TERM + 50;
     default:
       return TAPPING_TERM;
@@ -77,67 +77,69 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty - layer 0
- * ,-----------------------------------------------------------------------------------.
- * |ESCCAP|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |DELETE|
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  \   |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |SFTENT|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Ctrl |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | UP   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SEARCH|NUMPAD| Alt  | GUI  |BKSpc |Lower |Raise |Space | RCTL | LEFT | RIGHT| DOWN |
- * `-----------------------------------------------------------------------------------'
- */
-[_QWERTY] = LAYOUT_preonic_grid( \
-  TD(ESC_CAP),    KC_1,    KC_2,    KC_3,    KC_4,          KC_5,    KC_6,    KC_7,          KC_8,    KC_9,    KC_0,    KC_DEL, \
-  LSFT_T(KC_TAB), KC_Q,    KC_W,    KC_E,    KC_R,          KC_T,    KC_Y,    KC_U,          KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS),  \
-  KC_ENT,         KC_A,    KC_S,    KC_D,    KC_F,          KC_G,    KC_H,    KC_J,          KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LCTL,        KC_Z,    KC_X,    KC_C,    KC_V,          KC_B,    KC_N,    KC_M,          KC_COMM, KC_DOT,  KC_SLSH, KC_UP,  \
-  KC_WSCH,        TT(6),   KC_LALT, KC_LGUI, LT(6,KC_BSPC), LOWER,   RAISE,   LT(7,KC_SPC),  KC_RCTL, KC_LEFT, KC_RGHT, KC_DOWN  \
-),
 
-/* Colemak - layer 1
+/* Colemak - layer 0
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |EscCap|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |DELETE|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Del  |
+ * |SftTab|   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |SFT \ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * | ENTER|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * | LCTL |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |  UP  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |BACKSP|LOWER |Raise |SPACE | Left | Down |  Up  |Right |
+ * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | LEFT | RIGHT| DOWN |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_preonic_grid( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,          KC_5,    KC_6,    KC_7,          KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,          KC_G,    KC_J,    KC_L,          KC_U,    KC_Y,    KC_SCLN, KC_DEL,  \
-  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,          KC_D,    KC_H,    KC_N,          KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,          KC_B,    KC_K,    KC_M,          KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LT(6,KC_BSPC), LOWER,   RAISE,   LT(6,KC_SPC),  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  TD(ESC_CAP),    KC_1,       KC_2,    KC_3,    KC_4,                KC_5,    KC_6,    KC_7,               KC_8,    KC_9,    KC_0,    KC_DEL, \
+  LSFT_T(KC_TAB), KC_Q,       KC_W,    KC_F,    KC_P,                KC_G,    KC_J,    KC_L,               KC_U,    KC_Y,    KC_SCLN, RSFT_T(KC_BSLS),  \
+  KC_ENT,         KC_A,       KC_R,    KC_S,    KC_T,                KC_D,    KC_H,    KC_N,               KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,                KC_B,    KC_K,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_UP,  \
+  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(_NUMPAD,KC_BSPC), LOWER,   RAISE,   LT(_SPMOD,KC_SPC),  KC_RCTL, KC_LEFT, KC_RGHT, KC_DOWN  \
 ),
 
-/* not Dvorak anymore, now it is a gaming layer - layer 2
+/* Qwerty - layer 1
  * ,-----------------------------------------------------------------------------------.
- * | ESC  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |BACKSP|
+ * |EscCap|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |DELETE|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  \   |
+ * |SftTab|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |SFT \ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |SFTCAP|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * | ENTER|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Ctrl |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SFTENT|
+ * | LCTL |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | UP   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | DEL  |NUMPAD| Alt  | GUI  |Space |Lower |Raise |Space | Left | Down |  Up  |CT-RHT|
+ * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | LEFT | RIGHT| DOWN |
  * `-----------------------------------------------------------------------------------'
  */
-[_DVORAK] = LAYOUT_preonic_grid( \
-  TD(ESC_CAP),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL, \
-  KC_TAB,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS),  \
-  KC_SFTENT,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LCTL,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TD(DBL_MOUS),  \
-  KC_WSCH,        TT(6),   KC_LALT, KC_LGUI, KC_BSPC, LOWER,   RAISE,   KC_SPC,  KC_RCTL, KC_LEFT, KC_RGHT, KC_DOWN  \
+[_QWERTY] = LAYOUT_preonic_grid( \
+  TD(ESC_CAP),    KC_1,       KC_2,    KC_3,    KC_4,                KC_5,    KC_6,    KC_7,               KC_8,    KC_9,    KC_0,    KC_DEL, \
+  LSFT_T(KC_TAB), KC_Q,       KC_W,    KC_E,    KC_R,                KC_T,    KC_Y,    KC_U,               KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS),  \
+  KC_ENT,         KC_A,       KC_S,    KC_D,    KC_F,                KC_G,    KC_H,    KC_J,               KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,                KC_B,    KC_N,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_UP,  \
+  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(_NUMPAD,KC_BSPC), LOWER,   RAISE,   LT(_SPMOD,KC_SPC),  KC_RCTL, KC_LEFT, KC_RGHT, KC_DOWN  \
+),
+
+
+/* was Dvorak, now it is a gaming layer - layer 2
+ * ,-----------------------------------------------------------------------------------.
+ * |EscCap|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |DELETE|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |SFT \ |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |SHIFT |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Ctrl |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  UP  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |ENTER |      |      |      |Space |Lower |Raise |Space | LALT | LEFT | RIGHT| DOWN |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAME] = LAYOUT_preonic_grid( \
+  TD(ESC_CAP),    KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
+  KC_TAB,         KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS),  \
+  KC_LSFT,        KC_A,       KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,  \
+  KC_ENT,         KC_NO,      KC_NO,   KC_NO,   KC_BSPC, LOWER,   RAISE,   KC_SPC,  KC_LALT, KC_LEFT, KC_RGHT, KC_DOWN  \
 ),
 
 /* Lower - layer 3
@@ -184,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise) - layer 5
  * ,-----------------------------------------------------------------------------------.
- * |      |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |      |Reset |
+ * |      |Qwerty|Colemk| Game |      |      |      |      |      |      |      |Reset |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |AudTog|      |MusCyc|      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -196,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid( \
-  _______, QWERTY, COLEMAK,  DVORAK,  _______, _______, _______, _______, _______, _______, _______, RESET,  \
+  _______, COLEMAK, QWERTY,  GAME,    _______, _______, _______, _______, _______, _______, _______, RESET,  \
   _______, _______, _______, _______, _______, AU_TOG,  _______, MU_MOD,  _______, _______, _______, _______, \
   _______, _______, _______, _______, MUV_IN,  AU_ON,   MI_ON,   MU_ON,   _______, _______, _______, _______, \
   _______, _______, _______, _______, MUV_DE,  AU_OFF,  MI_OFF,  MU_OFF,  _______, _______, _______, _______, \
@@ -262,9 +264,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case DVORAK:
+        case GAME:
           if (record->event.pressed) {
-            set_single_persistent_default_layer(_DVORAK);
+            set_single_persistent_default_layer(_GAME);
           }
           return false;
           break;
