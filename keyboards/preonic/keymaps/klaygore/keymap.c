@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
+#include "audio.h"
 
 
 //Tap Dance Declarations
@@ -43,6 +44,7 @@ enum preonic_layers {
   _QWERTY,
   _COLEMAK,
   _GAME,
+  _MACRO,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -58,7 +60,7 @@ enum preonic_keycodes {
   GAME,
   LOWER,
   RAISE,
-  BACKLIT
+  MACRO
   
 };
 
@@ -146,7 +148,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ENT,         KC_NO,      KC_NO,   KC_NO,   KC_BSPC, LOWER,   RAISE,   KC_SPC,  KC_LALT, KC_LEFT, KC_RGHT, KC_DOWN  \
 ),
 
-/* Lower - layer 3
+
+/* MACROS - layer 3
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[_MACRO] = LAYOUT_preonic_grid( \
+  LCTL(KC_F11), LCTL(KC_F1), LCTL(KC_F2), LCTL(KC_F3), LCTL(KC_F4), LCTL(KC_F5), LCTL(KC_F6), LCTL(KC_F7), LCTL(KC_F8), LCTL(KC_F9), LCTL(KC_F10), LCTL(KC_F12),  \
+  LSFT(KC_F11), LSFT(KC_F1), LSFT(KC_F2), LSFT(KC_F3), LSFT(KC_F4), LSFT(KC_F5), LSFT(KC_F6), LSFT(KC_F7), LSFT(KC_F8), LSFT(KC_F9), LSFT(KC_F10), LSFT(KC_F12),  \
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LOWER, RAISE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
+),
+
+
+/* Lower - layer 4
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |  [   |  ]   |GRAVE |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -168,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  KC_PGDN \
 ),
 
-/* Raise - layer 4
+/* Raise - layer 5
  * ,-----------------------------------------------------------------------------------.
  * | VOL+ |      |      |      |      |      |      |      |      |  {   |  }   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -190,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_VOLD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
-/* Adjust (Lower + Raise) - layer 5
+/* Adjust (Lower + Raise) - layer 6
  * ,-----------------------------------------------------------------------------------.
  * |      |Qwerty|Colmak| Game |      |      |      |      |      |      |      |Reset |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -205,14 +231,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ADJUST] = LAYOUT_preonic_grid( \
-  _______, QWERTY,  COLEMAK, GAME,    _______, _______, _______, _______, _______, _______, _______, RESET,  \
+  _______, QWERTY,  COLEMAK, GAME,    DF(_MACRO),   _______, _______, _______, _______, _______, _______, RESET,  \
   _______, _______, _______, _______, _______, AU_TOG,  _______, MU_MOD,  _______, _______, _______, _______, \
   _______, _______, _______, _______, MUV_IN,  AU_ON,   MI_ON,   MU_ON,   _______, _______, _______, _______, \
   _______, _______, _______, _______, MUV_DE,  AU_OFF,  MI_OFF,  MU_OFF,  _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
-/* NUMPAD - layer 6
+/* NUMPAD - layer 7
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -234,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT, KC_NO,   KC_PPLS, _______  \
 ),
 
-/* SPACE MODIFIER - layer 7
+/* SPACE MODIFIER - layer 8
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -299,7 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case BACKLIT:
+ /*       case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
             #ifdef BACKLIGHT_ENABLE
@@ -315,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
           }
           return false;
-          break;
+          break;*/
       }
     return true;
 };
