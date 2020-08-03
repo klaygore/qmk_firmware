@@ -6,7 +6,8 @@
 
     #define DEFAULT_LAYER_SONGS { SONG(CHROMATIC_SOUND), \
                                   SONG(GUITAR_SOUND), \
-                                  SONG(VIOLIN_SOUND) \
+                                  SONG(VIOLIN_SOUND), \
+				  SONG(WORKMAN_SOUND) \
                                 }
 #endif
 

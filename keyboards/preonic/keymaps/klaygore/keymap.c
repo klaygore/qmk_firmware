@@ -151,9 +151,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MACROS - layer 3
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |C-F11 |C-F1  |C-F2  |C-F3  |C-F4  |C-F5  |C-F6  |C-F7  |C-F8  |C-F9  |C-F10 |C-F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |S-F11 |S-F1  |S-F2  |S-F3  |S-F4  |S-F5  |S-F6  |S-F7  |S-F8  |S-F9  |S-F10 |S-F12 |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise) - layer 6
  * ,-----------------------------------------------------------------------------------.
- * |      |Qwerty|Colmak| Game |      |      |      |      |      |      |      |Reset |
+ * |      |Qwerty|Colmak| Game |MACRO |      |      |      |      |      |      |Reset |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |AudTog|      |MusCyc|      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ADJUST] = LAYOUT_preonic_grid( \
-  _______, QWERTY,  COLEMAK, GAME,    DF(_MACRO),   _______, _______, _______, _______, _______, _______, RESET,  \
+  _______, QWERTY,  COLEMAK, GAME,    MACRO,   _______, _______, _______, _______, _______, _______, RESET,  \
   _______, _______, _______, _______, _______, AU_TOG,  _______, MU_MOD,  _______, _______, _______, _______, \
   _______, _______, _______, _______, MUV_IN,  AU_ON,   MI_ON,   MU_ON,   _______, _______, _______, _______, \
   _______, _______, _______, _______, MUV_DE,  AU_OFF,  MI_OFF,  MU_OFF,  _______, _______, _______, _______, \
@@ -302,6 +302,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case GAME:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_GAME);
+          }
+          return false;
+          break;
+	case MACRO:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_MACRO);
           }
           return false;
           break;
