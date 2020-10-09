@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ENTER|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | LCTL |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | UP   |
+ * | LCTL |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | PGUP |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | LEFT | RIGHT| DOWN |
+ * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | HOME | END  | PGDN |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -98,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(ESC_CAP),    KC_1,       KC_2,    KC_3,    KC_4,                KC_5,    KC_6,    KC_7,               KC_8,    KC_9,    KC_0,    KC_DEL, \
   LSFT_T(KC_TAB), KC_Q,       KC_W,    KC_E,    KC_R,                KC_T,    KC_Y,    KC_U,               KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS),  \
   KC_ENT,         KC_A,       KC_S,    KC_D,    KC_F,                KC_G,    KC_H,    KC_J,               KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,                KC_B,    KC_N,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_UP,  \
-  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(_NUMPAD,KC_BSPC), LOWER,   RAISE,   LT(_SPMOD,KC_SPC),  KC_RCTL, KC_LEFT, KC_RGHT, KC_DOWN  \
+  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,                KC_B,    KC_N,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_PGUP,  \
+  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(_NUMPAD,KC_BSPC), LOWER,   RAISE,   LT(_SPMOD,KC_SPC),  KC_RCTL, KC_HOME, KC_END,  KC_PGDN  \
 ),
 
 
@@ -111,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ENTER|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | LCTL |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |  UP  |
+ * | LCTL |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | PGUP |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | LEFT | RIGHT| DOWN |
+ * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | HOME | END  | PGDN |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -121,12 +121,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(ESC_CAP),    KC_1,       KC_2,    KC_3,    KC_4,                KC_5,    KC_6,    KC_7,               KC_8,    KC_9,    KC_0,    KC_DEL, \
   LSFT_T(KC_TAB), KC_Q,       KC_W,    KC_F,    KC_P,                KC_G,    KC_J,    KC_L,               KC_U,    KC_Y,    KC_SCLN, RSFT_T(KC_BSLS),  \
   KC_ENT,         KC_A,       KC_R,    KC_S,    KC_T,                KC_D,    KC_H,    KC_N,               KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,                KC_B,    KC_K,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_UP,  \
-  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(_NUMPAD,KC_BSPC), LOWER,   RAISE,   LT(_SPMOD,KC_SPC),  KC_RCTL, KC_LEFT, KC_RGHT, KC_DOWN  \
+  KC_LCTL,        KC_Z,       KC_X,    KC_C,    KC_V,                KC_B,    KC_K,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_PGUP,  \
+  KC_WSCH,        LCTL(KC_F), KC_LALT, KC_LGUI, LT(_NUMPAD,KC_BSPC), LOWER,   RAISE,   LT(_SPMOD,KC_SPC),  KC_RCTL, KC_HOME, KC_END,  KC_PGDN  \
 ),
 
 
-/* was Dvorak, now it is a gaming layer - layer 2
+/* Gaming layer - layer 2
  * ,-----------------------------------------------------------------------------------.
  * |EscCap|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |DELETE|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
