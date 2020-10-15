@@ -182,3 +182,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
+
+//#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+//#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 3
+
