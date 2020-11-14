@@ -27,19 +27,23 @@
 // Layer names
 enum userspace_layers {
   _BASE = SAFE_RANGE,
+  _GAME,
   _LAYER1,
   _LAYER2,
   _LAYER3,
   _RGB,
-  _MACROS
+  _MACROS,
+  _SPACEMOD,
 };
 
 #define  _BASE 		0
-#define  _LAYER1 	1
-#define  _LAYER2 	2
-#define  _LAYER3 	3
-#define  _RGB 		4
-#define  _MACROS 	5
+#define  _GAME		1
+#define  _LAYER1 	2
+#define  _LAYER2 	3
+#define  _LAYER3 	4
+#define  _RGB 		5
+#define  _MACROS 	6
+#define  _SPACEMOD	7
 
 // Wrappers for layouts
 #define LAYOUT_ortho_5x12_wrapper(...)       	LAYOUT_ortho_5x12(__VA_ARGS__)

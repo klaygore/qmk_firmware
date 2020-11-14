@@ -22,6 +22,19 @@
 #define ______ KC_NO
 
 /*
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case LT(3,KC_SPC):
+      return TAPPING_TERM + 50;
+    case LT(3,KC_BSPC):
+      return TAPPING_TERM + 50;
+    default:
+      return TAPPING_TERM;
+  }
+}
+*/
+
+/*
 PANDA_layout( \
              k31, k00, k01, k02, k03, k04, k05, k06, k07, k60, k61, k52, k57, k47,\
    k30,                                                                           \
@@ -36,81 +49,122 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    [_BASE] = PANDA_iso_split_wrapper(
 	/* Base Layer
      * ,____.      ,---------------------------------------------------------------------.
-     * |Knob|      | Esc| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |Bksp|Del  |Bksp|
+     * |Knob|      | Tab| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |DEL | HOME|PGUP|
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
-     *            | Tab | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  |BLCYC|BRTH|
+     *            |Enter| A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  | END |PGDN|
      *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
-     *       |Shft|Shift| Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  |Ent | Up  |Ent |
+     *       |Rase|Ctrl | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  | F2 | Up  | F5 |
      *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
-     *      |Ctl/Ent| Ctrl | Alt | TG 1 | Spacemod1  | Spacemod2   | TG 2 | <- |Down | -> |
+     *      |Lower|ESCM  | Alt | LGUI |  Backspc | SpaceMOD   | RCtrl     |LEFT|Down |RGHT|
      *      `----------------------------------------------------------------------------'
      */
-                     ESCMACRO,				QWERTY_1 , 						KC_BSPC,		KC_DEL,		RESET, 
-KC_MUTE,                                                                                                             
-				     KC_TAB,				QWERTY_2 ,						KC_QUOT,		BL_STEP ,	BL_BRTG , 
-		          KC_LSFT , KC_LSFT,		QWERTY_3 ,						KC_ENT,			KC_UP,   	KC_ENT,  
-LCTL_T(KC_ENT), LCTL_T(KC_ENT) ,KC_LALT , TG(1) ,  SPACEMOD1    ,    SPACEMOD2   , TG(2),  KC_MUTE , KC_LEFT, KC_DOWN, KC_RGHT 
+				LSFT_T(KC_TAB),	 KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,RSFT_T(KC_DEL),KC_HOME, KC_PGUP , 
+KC_MUTE,                                               	                                                              
+				KC_ENT, 	 KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,	KC_END , KC_PGDN , 
+			 TT(3), KC_LCTL,	 KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_F2,	KC_UP,   KC_F5,  
+			 TT(2), KC_ESC, KC_LALT, KC_LGUI , LT(_MACROS,KC_BSPC), LT(_SPACEMOD,KC_SPC), KC_RGUI, KC_RCTL, 		  KC_LEFT, 	KC_DOWN, KC_RGHT 
+),
+
+	    [_GAME] = PANDA_iso_split_wrapper(
+	/* Base Layer
+     * ,____.      ,---------------------------------------------------------------------.
+     * |Knob|      | Tab| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |DEL | HOME|PGUP|
+     * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
+     *            |Enter| A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  | END |PGDN|
+     *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
+     *       |Rase|Ctrl | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  | F2 | Up  | F5 |
+     *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
+     *      |Lower|ESCM  |     |      |  Backspc | Space      | ENTER     |LEFT|Down |RGHT|
+     *      `----------------------------------------------------------------------------'
+     */
+				KC_TAB,	 KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,RSFT_T(KC_DEL),KC_HOME, KC_PGUP , 
+KC_MUTE,                                               	                                                              
+				KC_LSFT, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,	KC_END , KC_PGDN , 
+			 TT(3), KC_LCTL, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_F2,	KC_UP,   KC_F5,  
+			 TT(2), KC_ESC,  KC_ENT,   KC_NO ,  	KC_BSPC,	 KC_SPC, 	KC_RGUI, KC_RCTL, 		   KC_LEFT, 	KC_DOWN, KC_RGHT 
 ),
 
 
 	[_LAYER1] = PANDA_iso_split_wrapper(
 	/* Layer 1
      * ,____.      ,---------------------------------------------------------------------.
-     * |Knob|      | Esc| !  | @  | #  | $  | %  | ^  | &  | *  | (  | )  |Bksp|Del  | TG3|
+     * |Knob|      |    |DF 0|DF 1|    |    |    |    |    |    |    | [  | ]  |     |RST |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
-     *            | Tab | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | \  | IDK |ASON|
+     *            |     |    |    |    |    |    |    |    | -  | +  |    |PAUS|     |    |
      *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
-     *       |  \ |Shift| _  | -  | =  | (  | )  | [  | ]  | ,  | .  | /  |Ent | Up  |ASOF|
+     *       |RASE|     |    |    |    |    |    |    |    |    |    |    |    |     |    |
      *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
-     *         OS | Ctrl | Alt |Space|  Space    /   TG            | Raise| <- |Down | -> |
+     *       LOWER|CAPS |    |    |              |         |       |      |    |     |    |
      *      `----------------------------------------------------------------------------'
      */
-				KC_DEL , 					SYM_ROW1 , 						KC_BSPC , KC_DEL , KC_BSPC ,  
-  KC_MUTE,                                                                                                                                 
-	            KC_GRV , 					NUM_ROW , 						KC_BSLS ,  ______ , BL_INC,  
-			   KC_LSFT , KC_LSFT, 			SYM_ROW2 , 						KC_ENT ,   KC_PGUP, BL_DEC,  
-KC_LGUI, KC_LCTL, KC_LALT,  TG(1), 		        KC_SPC ,    TG(1),  TG(2) ,   KC_MUTE , KC_LEFT, KC_PGDN, KC_RGHT 
+			         _______,DF(_BASE),DF(_GAME),_______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______ , _______, RESET,  
+  _______,                                                                                                                                 
+	            		 _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_PLUS, _______, KC_PAUS, _______, _______, _______,  
+			 TT(3),  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  
+			 TT(2),  KC_CAPS, _______,  _______,   _______, _______, _______,   _______ ,		_______, _______, _______ 
 ),
 
 
 	[_LAYER2] = PANDA_iso_split_wrapper(
 	/* Layer 2
      * ,____.      ,---------------------------------------------------------------------.
-     * |Knob|      | Esc| F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10|Bksp|Del  |TG(3|   14
+     * |Knob|      |    |    |    |    |    |    |    |    |    | {  |  } |    |     |    |   14
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
-     *            | Tab |    |    |    |    |    |    |    |    | F11| F12| \  |     |BL+ |   14
+     *            |     | F1 | F2 | F3 | F4 | F5 | F6 | _  | =  |    |PSCR|    |     |    |   14
      *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
-     *       |Shft|Shift| _  | -  | =  | (  | )  | [  | ]  | ,  | .  | /  |Ent |PGUP |BL- |   15
+     *       |RASE|     | F7 | F8 | F9 | F10| F11| F12|    |    |    |    |    |     |    |   15
      *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
-     *       CTL-OS | Ctrl | Alt |     |  Toggle layer 3  |        |      |BACK|PGDN |FWD |   11  = 54 total
+     *       LOWER|     |         |    |                 |         |      |    |     |    |   11  = 54 total
      *      `----------------------------------------------------------------------------'
      */
-				KC_DEL , 					FUNC_ROW1 , 						KC_BSPC , KC_DEL , TG(_LAYER3) ,  
-  KC_MUTE,                                                                                                                                 
-	            KC_GRV , 					FUNC_ROW2 , 						KC_BSLS ,  ______ , BL_INC,  
-			   KC_CAPS , KC_LSFT, 			SYM_ROW2 , 							KC_ENT ,   KC_PGUP, BL_DEC,  
-KC_LGUI, KC_LCTL, KC_LALT,  TG(1) ,		         TG(2),   KC_SPC ,       TG(2) ,      KC_MUTE , KC_WBAK, KC_PGDN, KC_WFWD 
+				 _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, _______, 
+  _______,                                                                                                                                 
+	            		 _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_UNDS, KC_EQL , _______, KC_PSCR, _______, _______, _______,  
+			 TT(3),  _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , _______, _______, _______, _______, _______, _______, _______,  
+			 TT(2),  _______, _______,  _______,   _______, _______, _______,   _______ ,		_______, _______, _______ 
 ),
 
 
 	[_MACROS] = PANDA_iso_split_wrapper(
 	/* Macros Layer
+     * ,____.      ,-----------------------------------------------------------------------.
+     * |Knob|      |    |    |    |    |    |    |    | 7  | 8  | 9  |    |    |HUE+ |MODE+|
+     * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|-----|
+     *            |     | /  | *  | +  | -  |    |    | 4  | 5  | 6  |    |    |HUE- |MODE-|
+     *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+-----|
+     *       |    |     |    |    |    |    |    |    | 1  | 2  | 3  |    |    |LGHT+|     |
+     *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+-----|
+     *            |      |     |     |              |   0        |   .    |    |LGHT-|     |
+     *      `------------------------------------------------------------------------------'
+     */
+				 _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9, _______, _______, RGB_HUI, RGB_MOD,  
+  _______,                                                                                                                                 
+	              		 _______, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______, _______, KC_4, KC_5, KC_6, _______, _______, RGB_HUD, RGB_RMOD,  
+			_______, _______, _______, _______, _______, _______, _______, _______, KC_1, KC_2, KC_3, _______, _______, RGB_VAI, _______, 
+			_______, _______, _______, _______,  	 _______, 		    KC_0, 	KC_PDOT,  _______, _______, RGB_VAD, _______
+),
+
+
+	[_SPACEMOD] = PANDA_iso_split_wrapper(
+	/* Macros Layer
      * ,____.      ,---------------------------------------------------------------------.
-     * |Knob|      | Esc| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |Bksp|Del  | LED|
+     * |Knob|      |    | !  | @  | #  | $  | %  | ^  | &  | *  | (  | )  | `~ |     |    |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
-     *            | Tab | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  | IDK |ASON|
+     *            |     |    |    |PREV|PLAY|NEXT|    |    |    |    |    |    |     |    |
      *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
-     *       |  \ |Shift| Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  |Ent | Up  |ASOF|
+     *       |    |     |    |    |    |    |    |    |MUTE|    |    |    |    |     |    |
      *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
-     *       CTL-OS | Ctrl | Alt |Space|  Spacemod1  /   Spacemod2 | Raise| <- |Down | -> |
+     *            |      |     |     |     DEL      |            |        |    |     |    |
      *      `----------------------------------------------------------------------------'
      */
-                 ______  , 					MACRO_1 , 					______ ,   ______ ,     LALT(KC_F4) ,   
-KC_MUTE,                                                                                                                                        
-				    ______ , 				MACRO_2 , 							______ ,   ______ , RESET ,   
-				   KC_LSFT , KC_LSFT,      	MACRO_3,					   		BLANK_3 ,   
-KC_MUTE,  ______, ______, CDQMK ,		        SNAKEDOCTOR , OPSECPANDA , 		BLANK_5  
+				 _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV , _______, _______,  
+  _______,                                                                                                                                 
+	              		 _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______,  
+			_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, _______, _______, _______, _______, _______, _______, 
+			_______, _______, _______,  _______,  	 KC_DEL, 		    _______, 	_______,  _______, _______, _______, _______
 )
+
+
 };
 
 // Normally my third layer is toggled on for RGB control, saving this here in case I want it later
