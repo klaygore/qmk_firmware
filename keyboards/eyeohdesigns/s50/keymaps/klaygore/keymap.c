@@ -21,8 +21,8 @@
 
 #define ______ KC_NO
 
-/* SAVING THIS FOR LATER WHEN/IF I GET TAP DANCE WORKING
-uint16_t get_tapping_term(uint16_t keycode) {
+//SAVING THIS FOR LATER WHEN/IF I GET TAP DANCE WORKING
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LT(_MACROS,KC_SPC):
       return TAPPING_TERM + 50;
@@ -31,7 +31,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
     default:
       return TAPPING_TERM;
   }
-}*/
+}
 
 
 /*
