@@ -200,7 +200,7 @@ bool led_update_user(led_t led_state) {
     writePin(B5, led_state.caps_lock);
     return false;
 }
-
+/*
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
@@ -210,3 +210,44 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+*/
+
+#ifdef ENCODER_ENABLE
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        
+  switch (biton32(layer_state))   {     //break each encoder update into a switch statement for the current layer
+   
+   case 0:
+        if (clockwise) { tap_code(KC_VOLD); }
+	else { tap_code(KC_VOLU); }
+        break;
+      
+
+  case 4:
+        if (clockwise) { tap_code16(G(KC_LEFT)); }
+	else { tap_code16(G(KC_RGHT)); }
+        break;
+
+  case 5:
+	if (!clockwise) {
+  		
+		register_code(KC_LGUI);
+		tap_code16(KC_TAB);
+	
+	} 
+  	if (clockwise) {
+		register_code(KC_LGUI);
+		tap_code16(S(KC_TAB));
+
+	}
+	else {}
+        break;
+
+  } //end switch
+
+  } //end index IF at top
+
+} //end void
+#endif
