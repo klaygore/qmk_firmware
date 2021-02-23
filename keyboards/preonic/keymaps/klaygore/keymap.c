@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | LCTL |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | PGUP |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | HOME | END  | PGDN |
+ * |SEARCH| FUNC | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | HOME | END  | PGDN |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | LCTL |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | PGUP |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SEARCH| FIND | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | HOME | END  | PGDN |
+ * |SEARCH| FUNC | Alt  | GUI  |BACKSP|LOWER |RAISE |SPACE | RCTL | HOME | END  | PGDN |
  * `-----------------------------------------------------------------------------------'
  */
 
