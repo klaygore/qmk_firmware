@@ -47,7 +47,7 @@ PANDA_layout( \
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    [_BASE] = PANDA_iso_split_wrapper(
-	/* Layer 0
+	/* Base Layer
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      |STab| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |DEL | HOME|PGUP|
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
@@ -58,15 +58,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *      |Lower| ESC  | Alt | LGUI |  Backspc | SpaceMOD   | RCtrl     |LEFT|Down |RGHT|
      *      `----------------------------------------------------------------------------'
      */
-				LSFT_T(KC_TAB),	 KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,RSFT_T(KC_DEL),KC_HOME, MO(5) , 
-KC_MPLY,                                               	                                                              
-				KC_ENT, 	 KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,	KC_END , MO(4) , 
-			 TT(3), KC_LCTL,	 KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, LT(2,KC_F2),	KC_UP,   LT(1,KC_F5),  
+				LSFT_T(KC_TAB),	 KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,RSFT_T(KC_DEL),KC_HOME, KC_PGUP , 
+KC_MUTE,                                               	                                                              
+				KC_ENT, 	 KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,	KC_END , KC_PGDN , 
+			 TT(3), KC_LCTL,	 KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_F2,	KC_UP,   KC_F5,  
 			 TT(2), KC_ESC, KC_LALT, KC_LGUI , LT(_MACROS,KC_BSPC), LT(_SPACEMOD,KC_SPC), KC_RGUI, KC_RCTL, 		  KC_LEFT, 	KC_DOWN, KC_RGHT 
 ),
 
 	    [_GAME] = PANDA_iso_split_wrapper(
-	/* Layer 1
+	/* Base Layer
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      | Tab| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |DEL | HOME|PGUP|
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
@@ -77,40 +77,40 @@ KC_MPLY,
      *      |Lower|ESC   |     |      |  Backspc | Space      | ENTER     |LEFT|Down |RGHT|
      *      `----------------------------------------------------------------------------'
      */
-				KC_TAB,	 KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,RSFT_T(KC_DEL),KC_HOME, MO(5) , 
-KC_MPLY,                                               	                                                              
-				KC_LSFT, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,	KC_END , MO(4) , 
-			 TT(3), KC_LCTL, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, LT(2,KC_F2),	KC_UP,   KC_F5,  
+				KC_TAB,	 KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,RSFT_T(KC_DEL),KC_HOME, KC_PGUP , 
+KC_MUTE,                                               	                                                              
+				KC_LSFT, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,	KC_END , KC_PGDN , 
+			 TT(3), KC_LCTL, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_F2,	KC_UP,   KC_F5,  
 			 TT(2), KC_ESC,  KC_ENT,   KC_NO ,  	KC_BSPC,	 KC_SPC, 	KC_RGUI, KC_RCTL, 		   KC_LEFT, 	KC_DOWN, KC_RGHT 
 ),
 
 
 	[_LAYER1] = PANDA_iso_split_wrapper(
-	/* Layer 2
+	/* Layer 1
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      |SESC|DF 0|DF 1|    |    |    |    |    |    |    | [  | ]  |     |RST |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
-     *            |     |    |    |    |    |    |    |    |    |    |    |PAUS|     |    |
+     *            |     |    |    |    |    |    |    |    | -  | +  |    |PAUS|     |    |
      *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
-     *       |RASE|     | G1 | G2 | G3 | G4 | G5 | G6 | G7 | G8 | G9 | G0 |    |     |    |
+     *       |RASE|     |    |    |    |    |    |    |    |    |    |    |    |     |    |
      *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
      *       LOWER|CAPS |    |    |              |         |       |      |    |     |    |
      *      `----------------------------------------------------------------------------'
      */
 			 LSFT_T(KC_ESC),DF(_BASE),DF(_GAME),_______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______ , _______, RESET,  
   _______,                                                                                                                                 
-	            		 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PAUS, _______, _______, _______,  
-			 TT(3),  _______, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), _______, _______, _______,  
+	            		 _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_PLUS, _______, KC_PAUS, _______, _______, _______,  
+			 TT(3),  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  
 			 TT(2),  KC_CAPS, _______,  _______,   _______, _______, _______,   _______ ,		_______, _______, _______ 
 ),
 
 
 	[_LAYER2] = PANDA_iso_split_wrapper(
-	/* Layer 3
+	/* Layer 2
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      |SESC|    |    |    |    |    |    |    |    | {  |  } |    |     |    |   14
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
-     *            |     | F1 | F2 | F3 | F4 | F5 | F6 |    |    |    |PSCR|    |     |    |   14
+     *            |     | F1 | F2 | F3 | F4 | F5 | F6 | _  | =  |    |PSCR|    |     |    |   14
      *       ,----------+----+----+----+----+----+----+----+----+----+----+----+-----+----|
      *       |RASE|     | F7 | F8 | F9 | F10| F11| F12|    |    |    |    |    |     |    |   15
      *      ,-----+-----+---------+----+----+----+----+----+----+----+----+----+-----+----|
@@ -119,14 +119,14 @@ KC_MPLY,
      */
 			 LSFT_T(KC_ESC), _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, _______, 
   _______,                                                                                                                                 
-	            		 _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , _______, _______ , _______, KC_PSCR, _______, _______, _______,  
+	            		 _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_UNDS, KC_EQL , _______, KC_PSCR, _______, _______, _______,  
 			 TT(3),  _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , _______, _______, _______, _______, _______, _______, _______,  
 			 TT(2),  _______, _______,  _______,   _______, _______, _______,   _______ ,		_______, _______, _______ 
 ),
 
 
 	[_MACROS] = PANDA_iso_split_wrapper(
-	/* Layer 4
+	/* Macros Layer
      * ,____.      ,-----------------------------------------------------------------------.
      * |Knob|      |SESC|    |    |    |    |    |    | 7  | 8  | 9  |    |BSLS|     |     |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|-----|
@@ -146,7 +146,7 @@ KC_MPLY,
 
 
 	[_SPACEMOD] = PANDA_iso_split_wrapper(
-	/* Layer 5
+	/* Spacemod Layer
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      |SESC| !  | @  | #  | $  | %  | ^  | &  | *  | (  | )  | `~ |     |    |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+-----|----|
@@ -191,93 +191,27 @@ KC_LGUI,  KC_LCTL, KC_LALT, CDQMK ,		        SNAKEDOCTOR , OPSECPANDA , 		BLANK_
 
 void matrix_init_user(void) {}
 
+void matrix_scan_user(void) {}
+
 void led_set_user(uint8_t usb_led) {}
 
-#ifdef ENCODER_ENABLE
-
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
-
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        switch (biton32(layer_state)) {     //break each encoder update into a switch statement for the current layer
-  
-		case 0:
-			if (clockwise) {
-			    tap_code(KC_VOLU);
-			} else {
-			    tap_code(KC_VOLD);
-			}
-                	break;    
-                
-        	case 1:
-			if (clockwise) {
-			    tap_code(KC_MNXT);
-			} else {
-			    tap_code(KC_MPRV);
-			}
-			break;    
-		   
-		case 2:
-			if (clockwise) {
-		            tap_code16(C(KC_TAB));
-		        } else {
-		            tap_code16(S(C(KC_TAB)));
-		        }
-		        break;
-           
-           
-		case 3:
-			if (clockwise) {
-	  		if (!is_alt_tab_active) {
-	  		  is_alt_tab_active = true;
-	  		  register_code(KC_LALT);
-			  }
-	 	 	alt_tab_timer = timer_read();
-	 		 tap_code16(KC_TAB);
-			} else {
-
-			if (!is_alt_tab_active) {
-	  		  is_alt_tab_active = true;
-	  		  register_code(KC_LALT);
-	 		 }
-	 		 alt_tab_timer = timer_read();
-	 		 tap_code16(S(KC_TAB));
-			}
-		        break;
-   
-   
-                 case 4:
-			if (clockwise) {
-			  tap_code(KC_PGUP);
-			} else {
-			  tap_code(KC_PGDN);
-			}
-           		break;
-           
-		case 5:
-			if (clockwise) {
-			  tap_code16(C(KC_Y));
-			} else {
-			  tap_code16(C(KC_Z));
-			}
-               		break;             
-                
-
-
-
-        }
-       }
-      }
-     
-#endif
-
-
-void matrix_scan_user(void) {
-  if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
-    }
-  }
+ if (index == 0) {
+	 if (clockwise) {
+    register_code (KC_VOLD);
+	unregister_code(KC_VOLD);
+ }  else{
+	register_code(KC_VOLU);
+    unregister_code(KC_VOLU);
+ }
+ }
+ if (index == 2) {
+	 if (clockwise) {
+    register_code (KC_PGDN);
+	unregister_code(KC_PGDN);
+ }  else{
+	register_code(KC_PGUP);
+    unregister_code(KC_PGUP);
+ }
+ }
 }
