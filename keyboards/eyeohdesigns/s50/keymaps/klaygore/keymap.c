@@ -220,10 +220,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 		   
 		case 2:
 			if (clockwise) {
-		            tap_code16(C(KC_TAB));
-		        } else {
-		            tap_code16(S(C(KC_TAB)));
-		        }
+			  tap_code(KC_F4);
+			} else {
+			  tap_code16(S(KC_F4));
+			}
 		        break;
            
            
