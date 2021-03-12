@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
     [_MAIN] = LAYOUT_ortho(
-        LSFT_T(KC_TAB), KC_Q, 	KC_W,  	 KC_E,    KC_R,   	 KC_T,  KC_HOME, KC_Y,  KC_U,         KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS), KC_MUTE,
+        LSFT_T(KC_TAB), KC_Q, 	KC_W,  	 KC_E,    KC_R,   	 KC_T,  KC_HOME, KC_Y,  KC_U,         KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS), KC_MPLY,
         KC_ENT,		KC_A, 	KC_S, 	 KC_D,    KC_F,    	 KC_G,  KC_END,  KC_H,  KC_J, 	      KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LCTL, 	KC_Z, 	KC_X, 	 KC_C, 	  KC_V,    	 KC_B,  KC_PGUP, KC_N,  KC_M, 	      KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
         KC_ESC, 	MO(4), 	KC_LALT, KC_LGUI, LT(5,KC_BSPC), MO(2), KC_PGDN, MO(3), LT(6,KC_SPC), KC_RGUI, KC_RCTL, KC_LEFT, KC_DOWN, 	  KC_RGHT
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
     [_GAME] = LAYOUT_ortho(
-        KC_TAB,  KC_Q, 	KC_W,    KC_E,    KC_R,    KC_T,    KC_HOME, KC_Y,  KC_U,   KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS), KC_MUTE,
+        KC_TAB,  KC_Q, 	KC_W,    KC_E,    KC_R,    KC_T,    KC_HOME, KC_Y,  KC_U,   KC_I,    KC_O,    KC_P,    RSFT_T(KC_BSLS), KC_MPLY,
         KC_LSFT, KC_A, 	KC_S, 	 KC_D,    KC_F,    KC_G,    KC_END,  KC_H,  KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LCTL, KC_Z, 	KC_X, 	 KC_C, 	  KC_V,    KC_B,    KC_PGUP, KC_N,  KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
         KC_ESC,  MO(4), KC_LALT, KC_LGUI, KC_BSPC, MO(2),   KC_PGDN, MO(3), KC_SPC, KC_RGUI, KC_ENT,  KC_LEFT, KC_DOWN,		KC_RGHT
@@ -84,9 +84,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |   [    |   ]    |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |        |   F1   |   F2   |   F3   |   F4   |   F5   |   F6   |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |        |   F7   |   F8   |   F9   |   F10  |   F11  |   F12  |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------------------------'
@@ -94,8 +94,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_ortho(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,  KC_F6,   _______, _______, _______, _______, _______, _______,
+        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11, KC_F12,  _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -200,54 +200,101 @@ bool led_update_user(led_t led_state) {
     writePin(B5, led_state.caps_lock);
     return false;
 }
-/*
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
-    }
-}
-*/
+
+
+
+
+
 
 #ifdef ENCODER_ENABLE
 
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
-        
-  switch (biton32(layer_state))   {     //break each encoder update into a switch statement for the current layer
-   
-   case 0:
-        if (clockwise) { tap_code(KC_VOLD); }
-	else { tap_code(KC_VOLU); }
-        break;
-      
+        switch (biton32(layer_state)) {     //break each encoder update into a switch statement for the current layer
+  
+		case 0:
+			if (clockwise) {
+			    tap_code(KC_VOLU);
+			} else {
+			    tap_code(KC_VOLD);
+			}
+                	break;
 
-  case 4:
-        if (clockwise) { tap_code16(G(KC_LEFT)); }
-	else { tap_code16(G(KC_RGHT)); }
-        break;
+		case 1:
+			if (clockwise) {
+			    tap_code(KC_VOLU);
+			} else {
+			    tap_code(KC_VOLD);
+			}
+                	break; 
+                
+        	case 2:
+			if (clockwise) {
+			    tap_code(KC_MNXT);
+			} else {
+			    tap_code(KC_MPRV);
+			}
+			break;
+           
+		case 3:
+			if (clockwise) {
+			  tap_code16(C(S(KC_Z)));
+			} else {
+			  tap_code16(C(KC_Z));
+			}
+               		break;  
 
-  case 5:
-	if (!clockwise) {
-  		
-		register_code(KC_LGUI);
-		tap_code16(KC_TAB);
-	
-	} 
-  	if (clockwise) {
-		register_code(KC_LGUI);
-		tap_code16(S(KC_TAB));
+                case 4:
+			if (clockwise) {
+			  tap_code(KC_PGUP);
+			} else {
+			  tap_code(KC_PGDN);
+			}
+           		break;
+           
+		case 5:
+			if (clockwise) {
+	  		if (!is_alt_tab_active) {
+	  		  is_alt_tab_active = true;
+	  		  register_code(KC_LALT);
+			  }
+	 	 	alt_tab_timer = timer_read();
+	 		 tap_code16(KC_TAB);
+			} else {
 
-	}
-	else {}
-        break;
+			if (!is_alt_tab_active) {
+	  		  is_alt_tab_active = true;
+	  		  register_code(KC_LALT);
+	 		 }
+	 		 alt_tab_timer = timer_read();
+	 		 tap_code16(S(KC_TAB));
+			}
+		        break;
 
-  } //end switch
+		case 6:
+			if (clockwise) {
+			  tap_code16(C(KC_G));
+			} else {
+			  tap_code16(C(S(KC_G)));
+			}
+		        break;
 
-  } //end index IF at top
 
-} //end void
+        }
+       }
+      }
+     
 #endif
+
+
+void matrix_scan_user(void) {
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+}
